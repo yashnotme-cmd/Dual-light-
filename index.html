@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EXTC IoT Control</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f4f4f4; }
+        .btn { padding: 20px 40px; font-size: 20px; margin: 10px; cursor: pointer; border: none; border-radius: 8px; }
+        .on { background-color: #4CAF50; color: white; }
+        .off { background-color: #f44336; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Smart Dual Light Control</h1>
+    
+    <div>
+        <h3>Room Light (LED 1)</h3>
+        <button class="btn on" onclick="updateFirebase('Light1', 1)">Turn ON</button>
+        <button class="btn off" onclick="updateFirebase('Light1', 0)">Turn OFF</button>
+    </div>
+
+    <div>
+        <h3>Emergency Light (LED 2)</h3>
+        <button class="btn on" onclick="updateFirebase('Light2', 1)">Turn ON</button>
+        <button class="btn off" onclick="updateFirebase('Light2', 0)">Turn OFF</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // Paste your Firebase Config here (From Firebase Project Settings)
+        const firebaseConfig = {
+            databaseURL: "https://your-project-link.firebaseio.com"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        function updateFirebase(light, value) {
+            database.ref(light).set(value);
+            console.log(light + " set to " + value);
+        }
+    </script>
+</body>
+</html>
